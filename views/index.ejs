@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Utilisateurs</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Gestion des Utilisateurs</h1>
+
+    <!-- Formulaire d'ajout -->
+    <form action="/add" method="POST">
+        <input type="text" name="name" placeholder="Nom" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <!-- Liste des utilisateurs -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.id %></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td>
+                        <form action="/edit/<%= user.id %>" method="POST" style="display: inline;">
+                            <input type="text" name="name" value="<%= user.name %>" required>
+                            <input type="email" name="email" value="<%= user.email %>" required>
+                            <button type="submit">Modifier</button>
+                        </form>
+                        <a href="/delete/<%= user.id %>">Supprimer</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>
